@@ -23,7 +23,7 @@ class ContentListActivity : AppCompatActivity() {
         items.add(ContentModel("https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202112/08/onehomelife/202112080134100198voo.png", "title3"))
 
 
-        val rvAdapter = ContentRVAdapter(items)
+        val rvAdapter = ContentRVAdapter(baseContext, items)
         rv.adapter = rvAdapter
         rv.layoutManager = GridLayoutManager(this,2)
 

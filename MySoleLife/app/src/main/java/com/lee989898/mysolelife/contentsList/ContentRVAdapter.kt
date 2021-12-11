@@ -1,5 +1,6 @@
 package com.lee989898.mysolelife.contentsList
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lee989898.mysolelife.R
 
-class ContentRVAdapter(val items: ArrayList<ContentModel>): RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
+class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>): RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
         return ViewHolder(v)
@@ -30,7 +31,9 @@ class ContentRVAdapter(val items: ArrayList<ContentModel>): RecyclerView.Adapter
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
 
             contentTitle.text = item.title
-            Glide
+            Glide.with(context)
+                .load(item.imageUrl)
+                .into(imageViewArea)
 
 
 
