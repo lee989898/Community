@@ -60,7 +60,6 @@
 
         <EditText
             android:id="@+id/passwordArea2"
-
             style="@style/AuthEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
