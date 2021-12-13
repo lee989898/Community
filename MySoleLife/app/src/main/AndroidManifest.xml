@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lee989898.mysolelife">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MySoleLife">
+        <activity
+            android:name=".contentsList.ContentShowActivity"
+            android:exported="false"
+            android:label="@string/title_activity_content_show"
+            android:theme="@style/Theme.MySoleLife.NoActionBar" />
         <activity
             android:name=".contentsList.ContentListActivity"
             android:exported="false" />
