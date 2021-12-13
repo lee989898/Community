@@ -61,9 +61,7 @@ class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>,
 
 
                 if(bookmarkIdList.contains(key)){
-
-                    bookmarkIdList.remove(key)
-
+                    
                     FBRef.bookmarkRef
                         .child(FBAuth.getUid())
                         .child(key)

@@ -90,6 +90,8 @@ class ContentListActivity : AppCompatActivity() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                bookmarkIdList.clear()
+
                 for (dataModel in dataSnapshot.children) {
 
                     bookmarkIdList.add(dataModel.key.toString())
