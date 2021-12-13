@@ -1,6 +1,7 @@
 package com.lee989898.mysolelife.contentsList
 
 import android.content.Context
+import android.content.Intent
 import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lee989898.mysolelife.R
 
-class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>) :
+class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>, val keyList: ArrayList<String>) :
     RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.ViewHolder {
 
@@ -19,21 +20,12 @@ class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>)
         return ViewHolder(v)
     }
 
-    interface ItemClick{
-        fun onClick(view: View, position: Int)
-    }
 
-    var itemClick: ItemClick? = null
 
     override fun onBindViewHolder(holder: ContentRVAdapter.ViewHolder, position: Int) {
 
-        if(itemClick != null){
-            holder.itemView.setOnClickListener{ v->
-                itemClick?.onClick(v, position)
-            }
-        }
 
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], keyList[position])
 
     }
 
@@ -43,10 +35,22 @@ class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>)
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(item: ContentModel) {
+        fun bindItems(item: ContentModel, key: String) {
+
+            itemView.setOnClickListener{
+                val intent = Intent(context, ContentShowActivity::class.java)
+                intent.putExtra("url", item.webUrl)
+                itemView.context.startActivity(intent)
+            }
 
             val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
+            val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
+
+
+            bookmarkArea.setOnClickListener {
+                
+            }
 
             contentTitle.text = item.title
             Glide.with(context)
