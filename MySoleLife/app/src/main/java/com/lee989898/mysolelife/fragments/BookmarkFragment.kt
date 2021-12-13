@@ -78,8 +78,11 @@ class BookmarkFragment : Fragment() {
 
                 for (dataModel in dataSnapshot.children) {
                     val item = dataModel.getValue(ContentModel::class.java)
-                    items.add(item!!)
-                    itemKeyList.add(dataModel.key.toString())
+
+                    if(bookmarkIdList.contains(dataModel.key.toString())){
+                        items.add(item!!)
+                        itemKeyList.add(dataModel.key.toString())
+                    }
 
 
                 }
@@ -109,6 +112,7 @@ class BookmarkFragment : Fragment() {
                     bookmarkIdList.add(dataModel.key.toString())
 
                 }
+                getCategoryData()
 
             }
 
