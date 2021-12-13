@@ -19,7 +19,7 @@ class ContentListActivity : AppCompatActivity() {
         items.add(ContentModel("imageurl2", "title2"))
         items.add(ContentModel("imageurl3", "title3"))
 
-        val rvAdapter = ContentRVAdapter(items)
+        val rvAdapter = ContentRVAdapter(baseContext,items)
         rv.adapter = rvAdapter
 
         rv.layoutManager = GridLayoutManager(this, 2)
