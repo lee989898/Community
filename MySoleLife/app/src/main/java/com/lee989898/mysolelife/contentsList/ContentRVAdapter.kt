@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.utils.FBAuth
+import com.lee989898.mysolelife.utils.FBRef
 
 class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>, val keyList: ArrayList<String>) :
     RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
@@ -49,7 +51,9 @@ class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>,
 
 
             bookmarkArea.setOnClickListener {
-                
+
+                FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue("Good")
+
             }
 
             contentTitle.text = item.title
