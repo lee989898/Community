@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.contentsList.BookmarkRVAdapter
 import com.lee989898.mysolelife.contentsList.ContentModel
 import com.lee989898.mysolelife.databinding.FragmentBookmarkBinding
 import com.lee989898.mysolelife.utils.FBAuth
@@ -20,6 +23,12 @@ import com.lee989898.mysolelife.utils.FBRef
 class BookmarkFragment : Fragment() {
 
     lateinit var binding: FragmentBookmarkBinding
+
+    val bookmarkIdList = mutableListOf<String>()
+    val items = ArrayList<ContentModel>()
+    val itemKeyList = ArrayList<String>()
+
+    lateinit var rvAdapter: BookmarkRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +46,11 @@ class BookmarkFragment : Fragment() {
 
         getBookmarkData()
 
+        rvAdapter = BookmarkRVAdapter(requireContext(), items, itemKeyList, bookmarkIdList )
+
+        val rv: RecyclerView = binding.bookmarkRV
+        rv.adapter = rvAdapter
+        rv.layoutManager = GridLayoutManager(requireContext(), 2)
 
 
         binding.tipTap.setOnClickListener {
@@ -63,10 +77,14 @@ class BookmarkFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (dataModel in dataSnapshot.children) {
+                    val item = dataModel.getValue(ContentModel::class.java)
+                    items.add(item!!)
+                    itemKeyList.add(dataModel.key.toString())
+
 
                 }
 
-
+                rvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -88,6 +106,7 @@ class BookmarkFragment : Fragment() {
 
                 for (dataModel in dataSnapshot.children) {
 
+                    bookmarkIdList.add(dataModel.key.toString())
 
                 }
 
