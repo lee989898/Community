@@ -1,4 +1,6 @@
 package com.lee989898.mysolelife.contentsList
 
-class BookmarkModel {
-}
+data class BookmarkModel(
+    val bookmarkIsTrue : Boolean? = null
+
+)

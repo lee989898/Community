@@ -15,12 +15,16 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.utils.FBAuth
 import com.lee989898.mysolelife.utils.FBRef
 
 class ContentListActivity : AppCompatActivity() {
 
     lateinit var myRef: DatabaseReference
 
+    val bookmarkIdList = mutableListOf<String>()
+
+    lateinit var rvAdapter: ContentRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,7 @@ class ContentListActivity : AppCompatActivity() {
 
         val items = ArrayList<ContentModel>()
         val itemKeyList = ArrayList<String>()
-        val rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList)
+        rvAdapter = ContentRVAdapter(baseContext, items, itemKeyList, bookmarkIdList)
 
 
         val database = Firebase.database
@@ -88,7 +92,9 @@ class ContentListActivity : AppCompatActivity() {
 
                 for (dataModel in dataSnapshot.children) {
 
+                    bookmarkIdList.add(dataModel.key.toString())
                 }
+                rvAdapter.notifyDataSetChanged()
 
             }
 
@@ -97,7 +103,7 @@ class ContentListActivity : AppCompatActivity() {
                 Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
             }
         }
-        FBRef.bookmarkRef.addValueEventListener(postListener)
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(postListener)
 
     }
 

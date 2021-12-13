@@ -14,7 +14,8 @@ import com.lee989898.mysolelife.R
 import com.lee989898.mysolelife.utils.FBAuth
 import com.lee989898.mysolelife.utils.FBRef
 
-class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>, val keyList: ArrayList<String>) :
+class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>, val keyList: ArrayList<String>
+,val bookmarkIdList: MutableList<String>) :
     RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.ViewHolder {
 
@@ -49,10 +50,33 @@ class ContentRVAdapter(val context: Context, val items: ArrayList<ContentModel>,
             val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
             val bookmarkArea = itemView.findViewById<ImageView>(R.id.bookmarkArea)
 
+            if(bookmarkIdList.contains(key)){
+                bookmarkArea.setImageResource(R.drawable.bookmark_color)
+            }else{
+                bookmarkArea.setImageResource(R.drawable.bookmark_white)
+
+            }
 
             bookmarkArea.setOnClickListener {
 
-                FBRef.bookmarkRef.child(FBAuth.getUid()).child(key).setValue("Good")
+
+                if(bookmarkIdList.contains(key)){
+
+                    bookmarkIdList.remove(key)
+
+                    FBRef.bookmarkRef
+                        .child(FBAuth.getUid())
+                        .child(key)
+                        .removeValue()
+                }else{
+                    FBRef.bookmarkRef
+                        .child(FBAuth.getUid())
+                        .child(key)
+                        .setValue(BookmarkModel(true))
+
+
+                }
+
 
             }
 
