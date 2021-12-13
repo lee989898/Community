@@ -1,10 +1,13 @@
 package com.lee989898.mysolelife.contentsList
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.lee989898.mysolelife.R
 
 class ContentRVAdapter(val items: ArrayList<ContentModel>) :
@@ -27,8 +30,14 @@ class ContentRVAdapter(val items: ArrayList<ContentModel>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(item: ContentModel) {
+
             val contentTitle = itemView.findViewById<TextView>(R.id.textArea)
+            val imageViewArea = itemView.findViewById<ImageView>(R.id.imageArea)
+
             contentTitle.text = item.title
+            Glide
+
+
 
 
         }
