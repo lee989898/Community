@@ -75,6 +75,8 @@ class TalkFragment : Fragment() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
+                boardDataList.clear()
+
                 for (dataModel in dataSnapshot.children) {
 
                     val item = dataModel.getValue(BoardModel::class.java)
