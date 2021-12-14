@@ -6,9 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TalkFragment">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/writeBtn"
+            android:src="@drawable/btnwrite"
+            android:layout_marginRight="20dp"
+            android:layout_width="80dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="80dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

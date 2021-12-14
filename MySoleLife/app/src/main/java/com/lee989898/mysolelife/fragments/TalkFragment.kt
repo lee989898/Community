@@ -1,5 +1,6 @@
 package com.lee989898.mysolelife.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.board.BoardWriteActivity
 import com.lee989898.mysolelife.databinding.FragmentTalkBinding
 
 
@@ -24,6 +26,11 @@ class TalkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTalkBinding.inflate(layoutInflater)
+
+        binding.writeBtn.setOnClickListener {
+            val intent = Intent(context, BoardWriteActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.tipTap.setOnClickListener {
             it.findNavController().navigate(R.id.action_talkFragment_to_tipFragment)
