@@ -52,6 +52,9 @@ class TalkFragment : Fragment() {
             startActivity(intent)
         }
 
+
+        
+
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
             startActivity(intent)
@@ -92,6 +95,7 @@ class TalkFragment : Fragment() {
 
 
                 }
+                boardDataList.reverse()
                 boardRVAdapter.notifyDataSetChanged()
 
 
