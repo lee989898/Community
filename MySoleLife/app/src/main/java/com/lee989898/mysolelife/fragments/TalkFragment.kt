@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.board.BoardListRVAdapter
+import com.lee989898.mysolelife.board.BoardModel
 import com.lee989898.mysolelife.board.BoardWriteActivity
 import com.lee989898.mysolelife.databinding.FragmentTalkBinding
 
@@ -26,6 +28,12 @@ class TalkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTalkBinding.inflate(layoutInflater)
+
+        val boardList = mutableListOf<BoardModel>()
+        boardList.add(BoardModel("a","B","c","d"))
+
+        val boardRVAdapter = BoardListRVAdapter(boardList)
+        binding.boardListView.adapter = boardRVAdapter
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
