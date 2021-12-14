@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MySoleLife">
         <activity
+            android:name=".board.BoardInsirdActivity"
+            android:exported="false" />
+        <activity
             android:name=".board.BoardWriteActivity"
             android:exported="false" />
         <activity

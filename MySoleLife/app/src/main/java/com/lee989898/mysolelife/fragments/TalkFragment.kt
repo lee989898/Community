@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.lee989898.mysolelife.R
+import com.lee989898.mysolelife.board.BoardInsirdActivity
 import com.lee989898.mysolelife.board.BoardListRVAdapter
 import com.lee989898.mysolelife.board.BoardModel
 import com.lee989898.mysolelife.board.BoardWriteActivity
@@ -39,10 +40,17 @@ class TalkFragment : Fragment() {
     ): View? {
         binding = FragmentTalkBinding.inflate(layoutInflater)
 
-
-
         boardRVAdapter = BoardListRVAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
+
+        binding.boardListView.setOnItemClickListener{
+            parent, view, positon,id ->
+            val intent = Intent(context, BoardInsirdActivity::class.java)
+            intent.putExtra("title", boardDataList[positon].title)
+            intent.putExtra("content", boardDataList[positon].content)
+            intent.putExtra("time", boardDataList[positon].time)
+            startActivity(intent)
+        }
 
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
