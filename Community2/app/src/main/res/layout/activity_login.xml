@@ -30,6 +30,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/emailArea"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="email"
@@ -44,8 +45,10 @@
             android:background="#999999" />
 
         <EditText
+            android:id="@+id/passwordArea"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:inputType="textPassword"
             android:hint="password"
             style="@style/AuthEditText"
             />
@@ -58,7 +61,8 @@
             android:background="#999999" />
 
         <Button
-            android:background="@drawable/background_radius"
+            android:id="@+id/loginBtn"
+            android:background="@drawable/background_radius_yellow"
             android:layout_margin="20dp"
             android:text="로그인하기"
             android:layout_width="match_parent"
