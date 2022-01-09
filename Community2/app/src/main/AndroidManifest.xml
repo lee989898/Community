@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Community">
         <activity
+            android:name=".board.BoardWriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".contentsList.ContentShowActivity"
             android:exported="false" />
         <activity

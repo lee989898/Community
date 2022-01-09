@@ -2,7 +2,6 @@ package com.lee989898.community.contentsList
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +15,15 @@ import com.lee989898.community.R
 import com.lee989898.community.utils.FBAuth
 import com.lee989898.community.utils.FBRef
 
-class ContentRVAdapter(val context: Context,
+class BookmarkRVAdapter(val context: Context,
                        val items: ArrayList<ContentModel>,
                        val keyList: ArrayList<String>,
-val bookmarkIdList: MutableList<String>)
-    : RecyclerView.Adapter<ContentRVAdapter.ViewHolder>() {
+                       val bookmarkIdList: MutableList<String>)
+    : RecyclerView.Adapter<BookmarkRVAdapter.ViewHolder>() {
 
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkRVAdapter.ViewHolder {
 
         val v = LayoutInflater.from(parent.context).inflate(R.layout.content_rv_item, parent, false)
 
@@ -34,7 +33,7 @@ val bookmarkIdList: MutableList<String>)
 
     }
 
-    override fun onBindViewHolder(holder: ContentRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookmarkRVAdapter.ViewHolder, position: Int) {
 
         holder.bindItems(items[position], keyList[position])
     }
@@ -63,30 +62,6 @@ val bookmarkIdList: MutableList<String>)
                 bookmarkArea.setImageResource(R.drawable.bookmark_color)
             }else{
                 bookmarkArea.setImageResource(R.drawable.bookmark_white)
-
-            }
-
-            bookmarkArea.setOnClickListener {
-                Log.d("ContentRVAdapter", FBAuth.getUid())
-                Toast.makeText(context, key,Toast.LENGTH_SHORT).show()
-
-                if(bookmarkIdList.contains(key)){
-
-                    FBRef.bookmarkRef
-                        .child(FBAuth.getUid())
-                        .child(key)
-                        .removeValue()
-
-                }else{
-
-                    FBRef.bookmarkRef
-                        .child(FBAuth.getUid())
-                        .child(key)
-                        .setValue(BookmarkModel(true))
-
-                }
-
-
 
             }
 
