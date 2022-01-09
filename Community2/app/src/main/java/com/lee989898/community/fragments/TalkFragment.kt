@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.lee989898.community.R
+import com.lee989898.community.board.BoardInsideActivity
 import com.lee989898.community.board.BoardListLVAdapter
 import com.lee989898.community.board.BoardModel
 import com.lee989898.community.board.BoardWriteActivity
@@ -44,6 +45,17 @@ class TalkFragment : Fragment() {
 
         boardRVAdapter = BoardListLVAdapter(boardDataList)
         binding.boardListView.adapter = boardRVAdapter
+
+        binding.boardListView.setOnItemClickListener{
+            parent,view,positoion,id ->
+
+            val intent = Intent(context, BoardInsideActivity::class.java)
+            intent.putExtra("title", boardDataList[positoion].title)
+            intent.putExtra("content", boardDataList[positoion].content)
+            intent.putExtra("time", boardDataList[positoion].time)
+
+            startActivity(intent)
+        }
 
 
         binding.writeBtn.setOnClickListener {
@@ -87,6 +99,7 @@ class TalkFragment : Fragment() {
                 boardDataList.add(item!!)
             }
 
+            boardDataList.reverse()
             boardRVAdapter.notifyDataSetChanged()
 
 
