@@ -29,6 +29,8 @@ class TalkFragment : Fragment() {
 
     private val boardDataList = mutableListOf<BoardModel>()
 
+    private val boardKeyList = mutableListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,13 +49,14 @@ class TalkFragment : Fragment() {
         binding.boardListView.adapter = boardRVAdapter
 
         binding.boardListView.setOnItemClickListener{
-            parent,view,positoion,id ->
+            parent,view,position,id ->
+
+//            intent.putExtra("title", boardDataList[positoion].title)
+//            intent.putExtra("content", boardDataList[positoion].content)
+//            intent.putExtra("time", boardDataList[positoion].time)
 
             val intent = Intent(context, BoardInsideActivity::class.java)
-            intent.putExtra("title", boardDataList[positoion].title)
-            intent.putExtra("content", boardDataList[positoion].content)
-            intent.putExtra("time", boardDataList[positoion].time)
-
+            intent.putExtra("key", boardKeyList[position])
             startActivity(intent)
         }
 
@@ -89,16 +92,21 @@ class TalkFragment : Fragment() {
         return binding.root
     }
 
-    private fun getFBBoardData(){ val postListener = object : ValueEventListener {
+    private fun getFBBoardData(){
+        val postListener = object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
             boardDataList.clear()
 
             for (dataModel in dataSnapshot.children) {
+
+
                 val item = dataModel.getValue(BoardModel::class.java)
                 boardDataList.add(item!!)
+                boardKeyList.add(dataModel.key.toString())
             }
 
+            boardKeyList.reverse()
             boardDataList.reverse()
             boardRVAdapter.notifyDataSetChanged()
 
