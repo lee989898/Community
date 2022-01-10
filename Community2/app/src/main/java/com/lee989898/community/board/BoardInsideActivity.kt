@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.lee989898.community.R
+import com.lee989898.community.comment.CommentLVAdapter
 import com.lee989898.community.comment.CommentModel
 import com.lee989898.community.databinding.ActivityBoardInsideBinding
 import com.lee989898.community.utils.FBAuth
@@ -25,8 +26,12 @@ import java.lang.Exception
 
 class BoardInsideActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityBoardInsideBinding
-    lateinit var key: String
+    private lateinit var binding: ActivityBoardInsideBinding
+    private lateinit var key: String
+
+    private val commentDataList = mutableListOf<CommentModel>()
+
+    private lateinit var commentAdapter : CommentLVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -47,6 +52,41 @@ class BoardInsideActivity : AppCompatActivity() {
         }
 
 
+        commentAdapter = CommentLVAdapter(commentDataList)
+        binding.commentLV.adapter = commentAdapter
+
+
+        getCommentData(key)
+
+    }
+
+    private fun getCommentData(key: String){
+
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                commentDataList.clear()
+
+
+                for (dataModel in dataSnapshot.children) {
+
+                    val item = dataModel.getValue(CommentModel::class.java)
+                    commentDataList.add(item!!)
+
+                }
+
+                commentAdapter.notifyDataSetChanged()
+
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("ContentListActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
+
     }
 
     private fun insertComment(key: String) {
@@ -54,7 +94,8 @@ class BoardInsideActivity : AppCompatActivity() {
         FBRef.commentRef
             .child(key)
             .push()
-            .setValue(CommentModel(binding.commentArea.text.toString()))
+            .setValue(CommentModel(binding.commentArea.text.toString(),
+            FBAuth.getTime()))
 
 
         binding.commentArea.setText("")
